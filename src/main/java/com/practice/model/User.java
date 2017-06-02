@@ -8,12 +8,14 @@ public class User {
 
   private Integer id;
 
+
   /**
    *
    */
   public User() {
     super();
   }
+
 
   /**
    * @param name
@@ -24,6 +26,17 @@ public class User {
     this.name = name;
     this.id = id;
   }
+
+  public User(String name) {
+    super();
+    this.name = name;
+  }
+
+  private User(Integer id) {
+    super();
+    this.id = id;
+  }
+
 
   public String getName() {
     return name;
