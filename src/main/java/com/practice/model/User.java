@@ -46,6 +46,9 @@ public class User {
     return "User [type=" + type + ", name=" + name + ", id=" + id + "]";
   }
 
+  private String type() {
+    return type;
+  }
 
 
 }

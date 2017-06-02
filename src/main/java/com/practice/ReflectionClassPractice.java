@@ -2,6 +2,7 @@ package com.practice;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.junit.Assert;
@@ -21,10 +22,16 @@ public class ReflectionClassPractice {
 
     Assert.assertTrue(classObject.equals(anotherObject));
 
+    // get the class name from class object
+    String name = anotherObject.getName();
+    Assert.assertNotNull(name);
+    Assert.assertTrue(className.equals(name));
+
     // Inspect the Class Object
     // getting the constructor info for that class
     // getDeclaredConstructors() method will return all declared constructors in the class including the
-    // private constructor where as getConstructors() will return only the visible constructors
+    // private constructors excluding where as getConstructors() will return only the public constructors
+    @SuppressWarnings("unchecked")
     Constructor<User>[] constructors = (Constructor<User>[]) anotherObject.getDeclaredConstructors();
 
     User user = null;
@@ -43,6 +50,27 @@ public class ReflectionClassPractice {
 
     // Check whether the class modifier for given class is public or not
     Assert.assertTrue(Modifier.isPublic(classObject.getModifiers()));
+
+    // how to find method in a class. getMethods() will only return the public methods
+    Method[] methods = anotherObject.getMethods();
+    System.out.println("List of methods: " + methods.length);
+
+    String type = "";
+
+    // how to find method in a class. getDeclaredMethods() will return all methods including private excluding
+    // inherited Methods
+    Method[] methods1 = anotherObject.getDeclaredMethods();
+    System.out.println("List of methods: " + methods1.length);
+    for (Method method : methods1) {
+      if (Modifier.isPrivate(method.getModifiers())) {
+        method.setAccessible(true);
+        type = (String) method.invoke(anotherObject.newInstance());
+      }
+    }
+
+    Assert.assertTrue(type != null && !type.isEmpty());
+    Assert.assertTrue(type.equalsIgnoreCase("user"));
+
 
   }
 
