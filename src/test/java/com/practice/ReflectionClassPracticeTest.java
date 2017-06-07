@@ -7,12 +7,15 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 import com.practice.model.User;
 
-public class ReflectionClassPractice {
+public class ReflectionClassPracticeTest {
 
-  public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException,
+  @Test
+  public void testReflectionClassPractice() throws ClassNotFoundException, InstantiationException,
+  IllegalAccessException,
   IllegalArgumentException, InvocationTargetException {
     // One way to get class Object
     String className = "com.practice.model.User";
@@ -85,13 +88,13 @@ public class ReflectionClassPractice {
     for (Constructor<User> constructor : constructors) {
       if (constructor.getParameterTypes().length == 2) {
         constructor.setAccessible(true);
-        user = constructor.newInstance("sai", 1);
+        user = constructor.newInstance("test", 1);
       }
     }
 
     // Assert to check that user object is created using the private constructor
     Assert.assertNotNull(user);
-    Assert.assertEquals("sai", user.getName());
+    Assert.assertEquals("test", user.getName());
     Assert.assertTrue(1 == user.getId().intValue());
 
     // Check whether the class modifier for given class is public or not

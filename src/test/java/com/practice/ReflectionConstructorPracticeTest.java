@@ -4,11 +4,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.practice.model.User;
 
-import junit.framework.Assert;
 
 public class ReflectionConstructorPracticeTest {
 
@@ -38,9 +38,9 @@ public class ReflectionConstructorPracticeTest {
     // get public Constructor with one argument
     Constructor<User> singleParameterConstructor = userClass.getConstructor(new Class[] { String.class });
     Assert.assertNotNull(singleParameterConstructor);
-    User user = singleParameterConstructor.newInstance("sai");
+    User user = singleParameterConstructor.newInstance("test");
     Assert.assertNotNull(user);
-    Assert.assertEquals("sai", user.getName());
+    Assert.assertEquals("test", user.getName());
     Assert.assertNull(user.getId());
 
     // get PrivateConstructor with one argument
@@ -60,9 +60,9 @@ public class ReflectionConstructorPracticeTest {
     Assert.assertTrue(Modifier.isPrivate(doublePrivateConstructor.getModifiers()));
     Assert.assertTrue(doublePrivateConstructor.getParameterCount() == 2);
     doublePrivateConstructor.setAccessible(true);
-    User user2 = doublePrivateConstructor.newInstance("sai", 1);
+    User user2 = doublePrivateConstructor.newInstance("test", 1);
     Assert.assertNotNull(user2);
-    Assert.assertEquals("sai", user2.getName());
+    Assert.assertEquals("test", user2.getName());
     Assert.assertTrue(user2.getId().intValue() == 1);
 
   }

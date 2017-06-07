@@ -36,13 +36,13 @@ public class ReflectionFieldPracticeTest {
       field.setAccessible(true);
       String fieldName = field.getName();
       if (fieldName.equals("name")) {
-        field.set(user, "sai");
+        field.set(user, "test");
       } else if (fieldName.equals("id")) {
         field.set(user, new Integer(1));
       }
     }
 
-    Assert.assertEquals("sai", user.getName());
+    Assert.assertEquals("test", user.getName());
     Assert.assertEquals(1, user.getId().intValue());
 
     // get field using the field Name if we know the field. Instead of getting all fields and loop over
